@@ -1,6 +1,9 @@
 package hello.core.lifecycle;
 
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient{
 
     private String url;
@@ -28,14 +31,16 @@ public class NetworkClient{
     }
 
 
+    // 스프링에 종속적인 것이 아닌 자바에서 제공 최근 스프링에서 가장 권장하는 방법
+    @PostConstruct
     public void init()  {
         System.out.println("NetworkClient.afterPropertiesSet");
         connect();
         call("초기화 연결 메시지");
     }
 
-
-
+    // 스프링에 종속적인 것이 아닌 자바에서 제공 최근 스프링에서 가장 권장하는 방법
+    @PreDestroy
     public void close()  {
         System.out.println("NetworkClient.destroy");
         disconnect();
